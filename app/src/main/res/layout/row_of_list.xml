@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="10dp">
+
+        <TextView
+            android:textSize="78sp"
+            tools:text="t"
+            android:textAllCaps="true"
+            android:gravity="center_horizontal"
+            android:id="@+id/txt_circle"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+
+            android:background="@drawable/bg_circle" />
+
+        <TextView
+            android:id="@+id/txt_task_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            tools:text="test" />
+
+        <TextView
+            android:id="@+id/txt_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_task_title"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@id/img_time"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            tools:text="test" />
+
+        <TextView
+            android:id="@+id/txt_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_time"
+            android:layout_margin="5dp"
+            android:layout_toRightOf="@id/img_time"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            tools:text="test" />
+
+        <ImageView
+            android:id="@+id/img_time"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_below="@id/txt_task_title"
+            android:layout_marginLeft="3dp"
+            android:background="@drawable/ic_baseline_access_time_24" />
+
+        <ImageView
+            android:id="@+id/img_date"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_below="@id/img_time"
+            android:background="@drawable/ic_baseline_history_24" />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

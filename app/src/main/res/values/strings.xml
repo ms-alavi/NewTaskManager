@@ -5,4 +5,5 @@
     <string name="todo">ToDo</string>
     <string name="doing">Doing</string>
     <string name="done">Done</string>
+    <string name="add">add</string>
 </resources>
