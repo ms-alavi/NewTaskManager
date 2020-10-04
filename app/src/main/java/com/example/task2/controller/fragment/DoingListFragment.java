@@ -74,12 +74,7 @@ public class DoingListFragment extends Fragment {
         mRecyclerView = view.findViewById(R.id.doing_recyclerView);
     }
     private void updateUI() {
-        Task task=new Task();
-        task.setTitle("test");
-        task.setState(State.Doing);
-        task.setDescription("Test list");
-        task.setDate(new Date());
-        mTaskDBRepository.insertTask(task);
+
         List<Task> tasks = mTaskDBRepository.getTasksForState(State.Doing);
 
         if (mTaskAdapter == null) {

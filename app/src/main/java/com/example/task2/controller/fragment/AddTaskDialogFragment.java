@@ -62,17 +62,25 @@ private boolean mFlag;
             public void onClick(View view) {
                 Task task=new Task();
                 if (mEditTextTitle.getText().toString().isEmpty() ||
-                        isValueTextInput(mEditTextTitle.getText().toString())){
-                    mEditTextTitle.setText(null);
-                    mEditTextTitle.setHint(R.string.cuationTitle);
-                    mEditTextTitle.setHintTextColor(Color.RED);
-                }else task.setTitle(mEditTextTitle.getText().toString());
-                if (mAutoCompleteTextView.getText().toString().isEmpty()) {
-                    mAutoCompleteTextView.setHint(R.string.cuationTitle);
-                    mAutoCompleteTextView.setHintTextColor(Color.RED);
-                }else task.setState(State.valueOf(mAutoCompleteTextView.getText().toString()));
-                mTaskDBRepository.insertTask(task);
-                dismiss();
+                        isValueTextInput(mEditTextTitle.getText().toString())||
+                                mAutoCompleteTextView.getText().toString().isEmpty()) {
+                    if (mEditTextTitle.getText().toString().isEmpty() ||
+                            isValueTextInput(mEditTextTitle.getText().toString())) {
+                        mEditTextTitle.setText(null);
+                        mEditTextTitle.setHint(R.string.cuationTitle);
+                        mEditTextTitle.setHintTextColor(Color.RED);
+                    }
+                    if (mAutoCompleteTextView.getText().toString().isEmpty()) {
+                        mAutoCompleteTextView.setHint(R.string.cuationTitle);
+                        mAutoCompleteTextView.setHintTextColor(Color.RED);
+                    }
+                }else {
+                    task.setTitle(mEditTextTitle.getText().toString());
+                    task.setState(State.valueOf(mAutoCompleteTextView.getText().toString()));
+                    mTaskDBRepository.insertTask(task);
+                    dismiss();
+                }
+
 
 
             }
