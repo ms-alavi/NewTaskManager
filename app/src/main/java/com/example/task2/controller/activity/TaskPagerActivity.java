@@ -10,18 +10,23 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.task2.R;
+import com.example.task2.controller.fragment.AddTaskDialogFragment;
 import com.example.task2.controller.fragment.DoingListFragment;
 import com.example.task2.controller.fragment.DoneListFragment;
 import com.example.task2.controller.fragment.ToDoListFragment;
 import com.example.task2.model.State;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class TaskPagerActivity extends AppCompatActivity {
+    public static final String TAG_ADD_TASK_DIALOG_FRAGMENT = "TagAddTaskDialogFragment";
     private ViewPager2 mViewPager2;
     private TabLayout mTabLayout;
+    private FloatingActionButton mFloatingActionButton;
 
     //don't use of single fragment activity cuz use of activity not fragment for building view pager
     //***************************************************************
@@ -38,6 +43,16 @@ public class TaskPagerActivity extends AppCompatActivity {
         setContentView(R.layout.task_pager);
         findViews();
         initViews();
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddTaskDialogFragment addTaskDialogFragment=AddTaskDialogFragment.newInstance();
+                addTaskDialogFragment.show(getSupportFragmentManager(), TAG_ADD_TASK_DIALOG_FRAGMENT);
+            }
+        });
+        Bundle bundle=new Bundle();
+
+
     }
     //***************************************************************
     private void initViews() {
@@ -64,6 +79,7 @@ public class TaskPagerActivity extends AppCompatActivity {
     //***************************************************************
 
     private void findViews() {
+        mFloatingActionButton=findViewById(R.id.fab);
         mTabLayout=findViewById(R.id.tab_layout);
         mViewPager2=findViewById(R.id.view_pager);
     }

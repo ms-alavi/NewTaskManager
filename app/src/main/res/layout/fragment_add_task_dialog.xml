@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".controller.fragment.AddTaskDialogFragment">
+
+    <TextView
+        android:id="@+id/txt_dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:fontFamily="casual"
+        android:text="@string/title"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edt_dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_dialog_title"
+        android:inputType="text"
+        android:layout_margin="8dp"
+        android:fontFamily="casual"
+        android:maxLength="50" />
+
+    <TextView
+        android:id="@+id/txt_dialog_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edt_dialog_title"
+        android:layout_margin="8dp"
+        android:fontFamily="casual"
+        android:text="@string/description"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edt_dialog_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:layout_below="@+id/txt_dialog_description"
+        android:layout_margin="8dp"
+        android:maxLength="300" />
+
+    <Button
+        android:id="@+id/btn_dialog_setTime"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/edt_dialog_description"
+        android:layout_centerInParent="true"
+        android:layout_margin="8dp"
+        android:background="@android:color/holo_blue_light"
+        android:fontFamily="casual"
+        android:text="@string/setTime"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_dialog_setDate"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/btn_dialog_setTime"
+        android:layout_centerInParent="true"
+        android:layout_margin="8dp"
+        android:background="@android:color/holo_blue_light"
+        android:fontFamily="casual"
+        android:text="@string/setDate"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_choose_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_dialog_setDate"
+        android:layout_margin="8dp"
+        android:fontFamily="casual"
+        android:text="@string/setState"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txi"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_choose_state">
+
+        <AutoCompleteTextView
+            android:id="@+id/filled_exposed_dropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@android:color/holo_blue_light"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:fontFamily="casual"
+
+            android:textStyle="bold" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txi"
+        android:layout_centerInParent="true">
+
+
+        <Button
+            android:id="@+id/btn_dialog_add_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@android:color/holo_blue_light"
+            android:fontFamily="casual"
+            android:text="@string/cancel"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_dialog_add_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@android:color/holo_blue_light"
+            android:fontFamily="casual"
+            android:text="@string/save"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</RelativeLayout>

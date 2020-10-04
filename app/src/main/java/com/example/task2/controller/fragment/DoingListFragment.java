@@ -14,8 +14,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.task2.R;
+import com.example.task2.model.State;
 import com.example.task2.model.Task;
 
+import java.util.Date;
 import java.util.List;
 
 import com.example.task2.repository.TaskDBRepository;
@@ -23,6 +25,7 @@ import com.example.task2.repository.TaskDBRepository;
 public class DoingListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private ImageView mImageView;
+    private TaskAdapter mTaskAdapter;
     private TaskDBRepository mTaskDBRepository;
     private List<Task> tasks;
 
@@ -55,18 +58,40 @@ public class DoingListFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
     private void initViews() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        tasks=mTaskDBRepository.getTasks();
-         TaskAdapter taskAdapter= new TaskAdapter(tasks);
-        mRecyclerView.setAdapter(taskAdapter);
-        if (tasks.size()==0)mImageView.setVisibility(View.VISIBLE);
-
+        updateUI();
     }
 
     private void findViews(View view) {
         mImageView=view.findViewById(R.id.img_doing_empty_list);
         mRecyclerView = view.findViewById(R.id.doing_recyclerView);
+    }
+    private void updateUI() {
+        Task task=new Task();
+        task.setTitle("test");
+        task.setState(State.Doing);
+        task.setDescription("Test list");
+        task.setDate(new Date());
+        mTaskDBRepository.insertTask(task);
+        List<Task> tasks = mTaskDBRepository.getTasksForState(State.Doing);
+
+        if (mTaskAdapter == null) {
+            mTaskAdapter = new TaskAdapter(tasks);
+            mRecyclerView.setAdapter(mTaskAdapter);
+        } else {
+            mTaskAdapter.setTasks(tasks);
+            mTaskAdapter.notifyDataSetChanged();
+        }
+        if (tasks.size()==0)mImageView.setVisibility(View.VISIBLE);
+        else mImageView.setVisibility(View.GONE);
+
     }
     public class TaskHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder {
         private TextView mIcon, mTitleText, mDateText, mTimeText;

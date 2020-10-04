@@ -6,4 +6,13 @@
     <string name="doing">Doing</string>
     <string name="done">Done</string>
     <string name="add">add</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="setTime">Set Time</string>
+    <string name="setDate">Set Date</string>
+    <string name="setState">Specify the task mode</string>
+    <string name="hint_text">Choose State</string>
+    <string name="cancel">cancel</string>
+    <string name="save">Save</string>
+    <string name="cuationTitle">This field should not be empty</string>
 </resources>

@@ -6,6 +6,7 @@ public class TaskDBSchema {
 
     public static final class TaskTable {
         public static final String NAME="taskTable";
+
         public static final class Cols {
             public static final String ID="id";
             public static final String UUID="uuid";

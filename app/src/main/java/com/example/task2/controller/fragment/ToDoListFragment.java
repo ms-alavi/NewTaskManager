@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.task2.R;
+import com.example.task2.model.State;
 import com.example.task2.model.Task;
 import com.example.task2.repository.TaskDBRepository;
 
@@ -56,7 +57,7 @@ public class ToDoListFragment extends Fragment {
     }
     private void initViews() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        tasks=mTaskDBRepository.getTasks();
+        tasks=mTaskDBRepository.getTasksForState(State.Todo);
         TaskAdapter taskAdapter=new TaskAdapter(tasks);
         mRecyclerView.setAdapter(taskAdapter);
         if (tasks.size()==0)mImageView.setVisibility(View.VISIBLE);
