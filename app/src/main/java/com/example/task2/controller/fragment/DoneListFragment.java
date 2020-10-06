@@ -14,8 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.task2.R;
-import com.example.task2.model.State;
-import com.example.task2.model.Task;
+import com.example.task2.controller.RecyclerViewComponent.TaskAdapter;
+import com.example.task2.controller.State;
+import com.example.task2.model.TaskEntity;
 import com.example.task2.repository.TaskDBRepository;
 
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.List;
 public class DoneListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private TaskDBRepository mTaskDBRepository;
-    private List<Task> tasks;
+    private TaskAdapter mTaskAdapter;
     private ImageView mImageView;
     public DoneListFragment() {
         // Required empty public constructor
@@ -62,67 +63,26 @@ public class DoneListFragment extends Fragment {
 
     private void initViews() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        tasks=mTaskDBRepository.getTasksForState(State.Done);
-        TaskAdapter taskAdapter=new TaskAdapter(tasks);
-        mRecyclerView.setAdapter(taskAdapter);
-        if (tasks.size()==0)mImageView.setVisibility(View.VISIBLE);
+       updateUI();
+    }
+    private void updateUI() {
+        List<TaskEntity> tasks = mTaskDBRepository.getTasksForState(State.Done);
+        mImageView.setVisibility(tasks.size()==0?View.VISIBLE:View.INVISIBLE);
+        if (mTaskAdapter == null) {
+            mTaskAdapter = new TaskAdapter(tasks);
+            mRecyclerView.setAdapter(mTaskAdapter);
+        } else {
+            mTaskAdapter.setTasks(tasks);
+            mTaskAdapter.notifyDataSetChanged();
+        }
 
     }
-    public class TaskHolder extends androidx.recyclerview.widget.RecyclerView.ViewHolder {
-        private TextView mIcon, mTitleText, mDateText, mTimeText;
-        private Task mTask;
 
-        public TaskHolder(@NonNull View itemView) {
-            super(itemView);
-            mDateText = itemView.findViewById(R.id.txt_date);
-            mTimeText = itemView.findViewById(R.id.txt_time);
-            mTitleText = itemView.findViewById(R.id.txt_task_title);
-            mIcon = itemView.findViewById(R.id.txt_circle);
-        }
-
-        public void bindTask(Task task) {
-            mTask=task;
-            mDateText.setText(task.getDate().toString());
-            mTimeText.setText(String.valueOf(task.getDate().getTime()));
-            mIcon.setText(task.getTitle().charAt(0));
-            mTitleText.setText(task.getTitle());
-
-        }
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
     }
-    public class TaskAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter<TaskHolder>{
-        private List<Task> mTasks;
 
-
-        public TaskAdapter(List<Task> tasks) {
-            mTasks = tasks;
-        }
-
-        public List<Task> getTasks() {
-            return mTasks;
-        }
-
-        public void setTasks(List<Task> tasks ) {
-            mTasks = tasks;
-        }
-
-        @NonNull
-        @Override
-        public TaskHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View itemView= LayoutInflater.from(getActivity()).inflate(R.layout.row_of_list,parent,
-                    false);
-            return new TaskHolder(itemView);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull TaskHolder holder, int position) {
-            Task task=new Task();
-            holder.bindTask(task);
-        }
-
-        @Override
-        public int getItemCount() {
-            return mTasks.size();
-        }
-    }
 
 }

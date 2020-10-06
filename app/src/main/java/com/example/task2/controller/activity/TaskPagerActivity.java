@@ -17,7 +17,7 @@ import com.example.task2.controller.fragment.AddTaskDialogFragment;
 import com.example.task2.controller.fragment.DoingListFragment;
 import com.example.task2.controller.fragment.DoneListFragment;
 import com.example.task2.controller.fragment.ToDoListFragment;
-import com.example.task2.model.State;
+import com.example.task2.controller.State;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
