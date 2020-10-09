@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +27,11 @@ public class DoneListFragment extends Fragment {
     private TaskDBRepository mTaskDBRepository;
     private TaskAdapter mTaskAdapter;
     private ImageView mImageView;
+
+    public TaskAdapter getTaskAdapter() {
+        return mTaskAdapter;
+    }
+
     public DoneListFragment() {
         // Required empty public constructor
     }
@@ -69,7 +75,17 @@ public class DoneListFragment extends Fragment {
         List<TaskEntity> tasks = mTaskDBRepository.getTasksForState(State.Done);
         mImageView.setVisibility(tasks.size()==0?View.VISIBLE:View.INVISIBLE);
         if (mTaskAdapter == null) {
-            mTaskAdapter = new TaskAdapter(tasks);
+            mTaskAdapter = new TaskAdapter(tasks) {
+                @Override
+                public FragmentManager getFragmentManagerForAdapter() {
+                    return getActivity().getSupportFragmentManager();
+                }
+
+                @Override
+                public Fragment getFragmentForAdapter() {
+                    return DoneListFragment.this;
+                }
+            };
             mRecyclerView.setAdapter(mTaskAdapter);
         } else {
             mTaskAdapter.setTasks(tasks);
@@ -82,6 +98,9 @@ public class DoneListFragment extends Fragment {
     public void onResume() {
         super.onResume();
         updateUI();
+    }
+    public void notifyDataSetChangeDone(){
+        mTaskAdapter.notifyDataSetChanged();
     }
 
 

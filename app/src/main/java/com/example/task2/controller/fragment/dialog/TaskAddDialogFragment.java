@@ -1,7 +1,9 @@
-package com.example.task2.controller.fragment;
+package com.example.task2.controller.fragment.dialog;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,34 +14,40 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.task2.R;
 import com.example.task2.controller.State;
 import com.example.task2.model.TaskEntity;
 import com.example.task2.repository.TaskDBRepository;
 
-import kotlinx.coroutines.scheduling.Task;
 
-public class AddTaskDialogFragment extends DialogFragment {
+public class TaskAddDialogFragment extends DialogFragment {
     private EditText mEditTextTitle, mEditTextDescription;
     private Button mButtonSetTime, mButtonSetDate, mButtonSave, mButtonCancel;
     private TaskDBRepository mTaskDBRepository;
     private AutoCompleteTextView mAutoCompleteTextView;
     private TaskEntity mTask;
-private String mString;
-    public AddTaskDialogFragment() {
+/*    private int mRequestCod;
+    private ToDoListFragment mToDoListFragment;
+    private DoingListFragment mDoingListFragment;
+    private DoneListFragment mDoneListFragment;
+    private List<TaskEntity> mTasks;*/
+
+
+    public TaskAddDialogFragment() {
         // Required empty public constructor
     }
 
 
-    public static AddTaskDialogFragment newInstance() {
-        AddTaskDialogFragment fragment = new AddTaskDialogFragment();
+    public static TaskAddDialogFragment newInstance() {
+        TaskAddDialogFragment fragment = new TaskAddDialogFragment();
         Bundle args = new Bundle();
 
         fragment.setArguments(args);
@@ -58,6 +66,21 @@ private String mString;
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        /*Fragment fragment=getTargetFragment();
+        mRequestCod=getTargetRequestCode();
+        switch (mRequestCod){
+            case 0:
+                mToDoListFragment= (ToDoListFragment) fragment;
+                break;
+            case 1:
+                mDoingListFragment= (DoingListFragment) fragment;
+                break;
+            case 2:
+                mDoneListFragment= (DoneListFragment) fragment;
+            default:
+                break;
+        }*/
+
         View view = LayoutInflater.from(getActivity())
                 .inflate(R.layout.fragment_add_task_dialog, null);
         findViews(view);
@@ -81,12 +104,32 @@ private String mString;
                         mEditTextTitle.setHint(R.string.cuationTitle);
                         mEditTextTitle.setHintTextColor(Color.RED);
                     }
-                    if ( mAutoCompleteTextView.getText().toString().equals(null)) {
+                    if ( mAutoCompleteTextView.getText().toString().isEmpty()) {
                         mAutoCompleteTextView.setHint(R.string.cuationTitle);
                         mAutoCompleteTextView.setHintTextColor(Color.RED);
                     }
                 } else {
                     mTaskDBRepository.insertTask(mTask);
+
+                   /* switch (mRequestCod){
+                        case 0:
+                            mTasks=mTaskDBRepository.getTasksForState(State.Todo);
+                            mToDoListFragment.getTaskAdapter().setTasks( mTasks);
+                            mToDoListFragment.getTaskAdapter().notifyDataSetChanged();
+                            break;
+                        case 1:
+                            mTasks=mTaskDBRepository.getTasksForState(State.Doing);
+                            mDoingListFragment.getTaskAdapter().setTasks(mTasks);
+                            mDoingListFragment.getTaskAdapter().notifyDataSetChanged();
+                            break;
+                        case 2:
+                            mTasks=mTaskDBRepository.getTasksForState(State.Done);
+                            mDoneListFragment.getTaskAdapter().setTasks( mTasks);
+                            mDoneListFragment.getTaskAdapter().notifyDataSetChanged();
+                        default:
+                            break;
+                    }*/
+
                     dismiss();
                 }
 
@@ -138,6 +181,39 @@ private String mString;
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+        mButtonSetTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePickerDialog dialog =new TimePickerDialog(getActivity(),
+                        new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        String time = String.format("%02d", hourOfDay) + " : "
+                                + String.format("%02d", minute);
+                        mTask.setTime(time);
+                        mButtonSetTime.setText(time);
+                    }
+                },24,00,false);
+
+                dialog.show();
+
+            }
+        });
+        mButtonSetDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog dialog=new DatePickerDialog(getActivity(),
+                       new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                       mTask.setDate(year+" / "+month+" / "+dayOfMonth);
+                       mButtonSetDate.setText(year+" / "+month+" / "+dayOfMonth);
+                    }
+
+                },2000,1,1);
+                dialog.show();
             }
         });
     }

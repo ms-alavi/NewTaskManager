@@ -3,6 +3,7 @@ package com.example.task2.controller.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -76,12 +77,28 @@ public class DoingListFragment extends Fragment {
         List<TaskEntity> tasks = mTaskDBRepository.getTasksForState(State.Doing);
         mImageView.setVisibility(tasks.size()==0?View.VISIBLE:View.INVISIBLE);
         if (mTaskAdapter == null) {
-            mTaskAdapter = new TaskAdapter(tasks);
+            mTaskAdapter = new TaskAdapter(tasks) {
+                @Override
+                public FragmentManager getFragmentManagerForAdapter() {
+                    return getActivity().getSupportFragmentManager();
+                }
+
+                @Override
+                public Fragment getFragmentForAdapter() {
+                    return DoingListFragment.this;
+                }
+            };
             mRecyclerView.setAdapter(mTaskAdapter);
         } else {
             mTaskAdapter.setTasks(tasks);
             mTaskAdapter.notifyDataSetChanged();
         }
     }
+    public void notifyDataSetChangeDoing(){
+        mTaskAdapter.notifyDataSetChanged();
+    }
 
+    public TaskAdapter getTaskAdapter() {
+        return mTaskAdapter;
+    }
 }

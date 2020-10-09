@@ -15,4 +15,6 @@
     <string name="cancel">cancel</string>
     <string name="save">Save</string>
     <string name="cuationTitle">This field should not be empty</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
 </resources>

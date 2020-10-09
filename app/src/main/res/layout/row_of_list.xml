@@ -15,7 +15,6 @@
         android:layout_alignParentRight="true"
         android:layout_margin="10dp"
         android:background="@drawable/bg_circle"
-        android:fontFamily="casual"
         android:gravity="center_horizontal"
         android:textAllCaps="true"
         android:textSize="58sp"
@@ -25,7 +24,6 @@
         android:id="@+id/txt_task_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="casual"
         android:textColor="@android:color/black"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -38,9 +36,8 @@
         android:layout_below="@id/txt_task_title"
         android:layout_margin="5dp"
         android:layout_toRightOf="@id/img_time"
-        android:fontFamily="casual"
         android:textColor="@android:color/black"
-        android:textSize="12sp"
+        android:textSize="14sp"
         tools:text="test" />
 
     <TextView
@@ -50,9 +47,8 @@
         android:layout_below="@id/txt_time"
         android:layout_margin="5dp"
         android:layout_toRightOf="@id/img_time"
-        android:fontFamily="casual"
         android:textColor="@android:color/black"
-        android:textSize="12sp"
+        android:textSize="14sp"
         tools:text="test" />
 
     <ImageView

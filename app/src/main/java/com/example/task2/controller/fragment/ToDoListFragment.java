@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -71,7 +72,17 @@ public class ToDoListFragment extends Fragment {
         List<TaskEntity> tasks = mTaskDBRepository.getTasksForState(State.Todo);
         mImageView.setVisibility(tasks.size()==0?View.VISIBLE:View.INVISIBLE);
         if (mTaskAdapter == null) {
-            mTaskAdapter = new TaskAdapter(tasks);
+            mTaskAdapter = new TaskAdapter(tasks) {
+                @Override
+                public FragmentManager getFragmentManagerForAdapter() {
+                    return getActivity().getSupportFragmentManager();
+                }
+
+                @Override
+                public Fragment getFragmentForAdapter() {
+                    return ToDoListFragment.this;
+                }
+            };
             mRecyclerView.setAdapter(mTaskAdapter);
         } else {
             mTaskAdapter.setTasks(tasks);
@@ -83,6 +94,14 @@ public class ToDoListFragment extends Fragment {
     public void onResume() {
         super.onResume();
         updateUI();
+    }
+
+    public TaskAdapter getTaskAdapter() {
+        return mTaskAdapter;
+    }
+
+    public void notifyDataSetChangeToDo(){
+        mTaskAdapter.notifyDataSetChanged();
     }
 
 }

@@ -7,7 +7,8 @@
     tools:context=".controller.fragment.dialog.TaskAddDialogFragment">
 
     <TextView
-        android:id="@+id/txt_dialog_title"
+        android:id="@+id/txt_dialog_title_detail"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -16,10 +17,11 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/edt_dialog_title"
+        android:enabled="false"
+        android:id="@+id/edt_dialog_title_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_dialog_title"
+        android:layout_below="@+id/txt_dialog_title_detail"
         android:inputType="text"
         android:layout_margin="8dp"
         android:maxLength="50" />
@@ -28,14 +30,15 @@
         android:id="@+id/txt_dialog_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edt_dialog_title"
+        android:layout_below="@+id/edt_dialog_title_detail"
         android:layout_margin="8dp"
         android:text="@string/description"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/edt_dialog_description"
+        android:enabled="false"
+        android:id="@+id/edt_dialog_description_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt_dialog_description"
@@ -43,32 +46,32 @@
         android:maxLength="300" />
 
     <Button
-        android:id="@+id/btn_dialog_setTime"
+        android:enabled="false"
+        android:id="@+id/btn_dialog_setTime_detail"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:layout_below="@id/edt_dialog_description"
+        android:layout_below="@id/edt_dialog_description_detail"
         android:layout_centerInParent="true"
         android:layout_margin="8dp"
         android:background="@android:color/holo_blue_light"
-        android:text="@string/setTime"
-       />
+        />
 
     <Button
-        android:id="@+id/btn_dialog_setDate"
+        android:enabled="false"
+        android:id="@+id/btn_dialog_setDate_detail"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:layout_below="@id/btn_dialog_setTime"
+        android:layout_below="@id/btn_dialog_setTime_detail"
         android:layout_centerInParent="true"
         android:layout_margin="8dp"
         android:background="@android:color/holo_blue_light"
-        android:text="@string/setDate"
         />
 
     <TextView
         android:id="@+id/txt_choose_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btn_dialog_setDate"
+        android:layout_below="@id/btn_dialog_setDate_detail"
         android:layout_margin="8dp"
         android:text="@string/setState"
         android:textSize="20sp"
@@ -82,14 +85,15 @@
         android:layout_below="@+id/txt_choose_state">
 
         <AutoCompleteTextView
-            android:id="@+id/filled_exposed_dropdown"
+            android:enabled="false"
+            android:id="@+id/filled_exposed_dropdown_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:background="@android:color/holo_blue_light"
             android:focusable="false"
             android:focusableInTouchMode="false"
-             />
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,22 +105,30 @@
 
 
         <Button
-            android:id="@+id/btn_dialog_add_cancel"
+            android:id="@+id/btn_dialog_detail_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:background="@android:color/holo_blue_light"
-            android:text="@string/cancel"
-             />
+            android:text="@string/delete"
+            />
 
         <Button
-            android:id="@+id/btn_dialog_add_save"
+            android:id="@+id/btn_dialog_detail_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@android:color/holo_blue_light"
+            android:text="@string/edit" />
+
+        <Button
+            android:id="@+id/btn_dialog_detail_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:background="@android:color/holo_blue_light"
             android:text="@string/save"
-             />
+            />
 
     </LinearLayout>
 
