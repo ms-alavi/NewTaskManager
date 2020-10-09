@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/doing_recyclerView"
-    tools:context=".controller.fragment.DoingListFragment"/>
+    tools:context=".controller.fragment.fragmentsWithList.DoingListFragment"/>
     <ImageView
         android:id="@+id/img_doing_empty_list"
         android:visibility="invisible"

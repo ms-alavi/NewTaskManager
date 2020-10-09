@@ -1,4 +1,4 @@
-package com.example.task2.controller.fragment.dialog;
+package com.example.task2.controller.fragment.dialogs;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -145,8 +145,8 @@ public class TaskAddDialogFragment extends DialogFragment {
         mAutoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                mTask.setState(State.valueOf(mAutoCompleteTextView.getText().toString()
-                ));
+                mTask.setState(mAutoCompleteTextView.getText().toString()
+                );
             }
         });
         mEditTextTitle.addTextChangedListener(new TextWatcher() {

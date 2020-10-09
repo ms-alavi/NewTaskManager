@@ -13,10 +13,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.task2.R;
-import com.example.task2.controller.fragment.dialog.TaskAddDialogFragment;
-import com.example.task2.controller.fragment.DoingListFragment;
-import com.example.task2.controller.fragment.DoneListFragment;
-import com.example.task2.controller.fragment.ToDoListFragment;
+import com.example.task2.controller.fragment.dialogs.TaskAddDialogFragment;
+import com.example.task2.controller.fragment.fragmentsWithList.DoingListFragment;
+import com.example.task2.controller.fragment.fragmentsWithList.DoneListFragment;
+import com.example.task2.controller.fragment.fragmentsWithList.ToDoListFragment;
 import com.example.task2.controller.State;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -47,7 +47,7 @@ public class TaskPagerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.task_pager);
+        setContentView(R.layout.task_pager_activity);
         findViews();
         initViews();
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
