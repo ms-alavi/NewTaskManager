@@ -1,4 +1,4 @@
-package com.example.task2.controller.fragment.dialogs;
+package com.example.task2.controller.fragment;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;

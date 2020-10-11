@@ -10,14 +10,13 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.task2.R;
-import com.example.task2.controller.fragment.dialogs.TaskAddDialogFragment;
-import com.example.task2.controller.fragment.fragmentsWithList.DoingListFragment;
-import com.example.task2.controller.fragment.fragmentsWithList.DoneListFragment;
-import com.example.task2.controller.fragment.fragmentsWithList.ToDoListFragment;
 import com.example.task2.controller.State;
+import com.example.task2.controller.fragment.TaskAddDialogFragment;
+import com.example.task2.controller.fragment.TaskListFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -31,9 +30,9 @@ public class TaskPagerActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private FloatingActionButton mFloatingActionButton;
     private int mPosition;
-    private ToDoListFragment mToDoListFragment;
-    private DoingListFragment mDoingListFragment;
-    private DoneListFragment mDoneListFragment;
+    private TaskListFragment mDoingListFragment;
+    public static final String TPA = "TPA";
+    private State[] mTaskList;
 
     //don't use of single fragment activity cuz use of activity not fragment for building view pager
     //***************************************************************
@@ -49,23 +48,14 @@ public class TaskPagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task_pager_activity);
         findViews();
+        mTaskList= new State[]{State.Todo, State.Doing, State.Done};
         initViews();
+        Log.d(TPA, "************************");
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TaskAddDialogFragment addTaskDialogFragment = TaskAddDialogFragment.newInstance();
-
-             /*   switch (mPosition) {
-                    case 0:
-                        addTaskDialogFragment.setTargetFragment(mToDoListFragment, REQUEST_CODE_TODO);
-                        break;
-                    case 1:
-                        addTaskDialogFragment.setTargetFragment(mDoingListFragment, REQUEST_CODE_DOING);
-                        break;
-                    case 2:
-                        addTaskDialogFragment.setTargetFragment(mDoneListFragment, REQUEST_CODE_DONE);
-                        break;
-                }*/
+                addTaskDialogFragment.setTargetFragment(TaskListFragment.class);
                 addTaskDialogFragment.show
                         (getSupportFragmentManager(), TAG_ADD_TASK_DIALOG_FRAGMENT);
             }
@@ -109,6 +99,8 @@ public class TaskPagerActivity extends AppCompatActivity {
     //**************************pagerAdapter*************************
     private class FixedTabsPagerAdapter extends FragmentStateAdapter {
 
+
+
         public FixedTabsPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
             super(fragmentActivity);
         }
@@ -116,25 +108,17 @@ public class TaskPagerActivity extends AppCompatActivity {
         @NonNull
         @Override
         public Fragment createFragment(int position) {
-            switch (position) {
-                case 0:
-                    mPosition = 0;
-                    return mToDoListFragment=ToDoListFragment.newInstance();
+            State state=mTaskList[position];
+            Log.d(TPA,state.name() + "************************");
+            TaskListFragment taskListFragment=TaskListFragment.newInstance(state);
+            return taskListFragment;
 
-                case 1:
-                    mPosition = 1;
-                    return mDoingListFragment= DoingListFragment.newInstance();
-                case 2:
-                    mPosition = 2;
-                    return mDoneListFragment=DoneListFragment.newInstance();
-                default:
-                    return null;
             }
-        }
+
 
         @Override
         public int getItemCount() {
-            return 3;
+            return mTaskList.length;
         }
 
 

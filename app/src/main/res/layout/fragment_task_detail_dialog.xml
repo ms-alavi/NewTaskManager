@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".controller.fragment.dialogs.TaskAddDialogFragment">
+    tools:context=".controller.fragment.TaskAddDialogFragment">
 
     <TextView
         android:id="@+id/txt_dialog_title_detail"

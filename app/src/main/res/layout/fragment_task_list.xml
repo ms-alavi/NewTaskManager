@@ -3,14 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/to_do_recyclerView"
-        tools:context=".controller.fragment.fragmentsWithList.DoingListFragment"/>
+<androidx.recyclerview.widget.RecyclerView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/task_recyclerView"
+    tools:context=".controller.fragment.TaskListFragment"/>
     <ImageView
-        android:id="@+id/img_to_do_empty_list"
-
+        android:id="@+id/img_doing_empty_list"
         android:visibility="invisible"
         android:layout_gravity="center"
         android:layout_width="match_parent"
