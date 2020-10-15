@@ -24,65 +24,52 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.task2.R;
 import com.example.task2.controller.State;
-import com.example.task2.model.TaskEntity;
+import com.example.task2.model.Task;
 import com.example.task2.repository.TaskDBRepository;
+
+import java.util.List;
 
 
 public class TaskAddDialogFragment extends DialogFragment {
+    public static final String ARGS_USER_CREATOR_ID = "argsUserCreatorId";
     private EditText mEditTextTitle, mEditTextDescription;
     private Button mButtonSetTime, mButtonSetDate, mButtonSave, mButtonCancel;
     private TaskDBRepository mTaskDBRepository;
     private AutoCompleteTextView mAutoCompleteTextView;
-    private TaskEntity mTask;
-/*    private int mRequestCod;
-    private ToDoListFragment mToDoListFragment;
-    private DoingListFragment mDoingListFragment;
-    private DoneListFragment mDoneListFragment;
-    private List<TaskEntity> mTasks;*/
-
+    private Task mTask;
+    private List<Task> mTasks;
+    private TaskListFragment mTaskListFragment;
 
     public TaskAddDialogFragment() {
         // Required empty public constructor
     }
 
 
-    public static TaskAddDialogFragment newInstance() {
+    public static TaskAddDialogFragment newInstance
+            (/*RecyclerView.Adapter<TaskListFragment.TaskHolder> adapter TODO*/ Long userCreatorId) {
         TaskAddDialogFragment fragment = new TaskAddDialogFragment();
         Bundle args = new Bundle();
-
+        args.putLong(ARGS_USER_CREATOR_ID,userCreatorId);
         fragment.setArguments(args);
         return fragment;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //check this context is true or not
         mTaskDBRepository = TaskDBRepository.getInstance(getContext());
-        mTask = new TaskEntity();
+        mTask = new Task();
 
     }
-
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        /*Fragment fragment=getTargetFragment();
-        mRequestCod=getTargetRequestCode();
-        switch (mRequestCod){
-            case 0:
-                mToDoListFragment= (ToDoListFragment) fragment;
-                break;
-            case 1:
-                mDoingListFragment= (DoingListFragment) fragment;
-                break;
-            case 2:
-                mDoneListFragment= (DoneListFragment) fragment;
-            default:
-                break;
-        }*/
 
         View view = LayoutInflater.from(getActivity())
                 .inflate(R.layout.fragment_add_task_dialog, null);
+        mTask.setUserCreatorId(getArguments().getLong(ARGS_USER_CREATOR_ID));
         findViews(view);
         exposedDropdownMenus();
         AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
@@ -97,39 +84,19 @@ public class TaskAddDialogFragment extends DialogFragment {
             public void onClick(View view) {
                 if (mEditTextTitle.getText().toString().equals(null) ||
                         isValueTextInput(mEditTextTitle.getText().toString()) ||
-                       mAutoCompleteTextView.getText().toString().equals(null)) {
+                        mAutoCompleteTextView.getText().toString().equals(null)) {
                     if (mEditTextTitle.getText().toString().equals(null) ||
                             isValueTextInput(mEditTextTitle.getText().toString())) {
                         mEditTextTitle.setText(null);
                         mEditTextTitle.setHint(R.string.cuationTitle);
                         mEditTextTitle.setHintTextColor(Color.RED);
                     }
-                    if ( mAutoCompleteTextView.getText().toString().isEmpty()) {
+                    if (mAutoCompleteTextView.getText().toString().isEmpty()) {
                         mAutoCompleteTextView.setHint(R.string.cuationTitle);
                         mAutoCompleteTextView.setHintTextColor(Color.RED);
                     }
                 } else {
                     mTaskDBRepository.insertTask(mTask);
-
-                   /* switch (mRequestCod){
-                        case 0:
-                            mTasks=mTaskDBRepository.getTasksForState(State.Todo);
-                            mToDoListFragment.getTaskAdapter().setTasks( mTasks);
-                            mToDoListFragment.getTaskAdapter().notifyDataSetChanged();
-                            break;
-                        case 1:
-                            mTasks=mTaskDBRepository.getTasksForState(State.Doing);
-                            mDoingListFragment.getTaskAdapter().setTasks(mTasks);
-                            mDoingListFragment.getTaskAdapter().notifyDataSetChanged();
-                            break;
-                        case 2:
-                            mTasks=mTaskDBRepository.getTasksForState(State.Done);
-                            mDoneListFragment.getTaskAdapter().setTasks( mTasks);
-                            mDoneListFragment.getTaskAdapter().notifyDataSetChanged();
-                        default:
-                            break;
-                    }*/
-
                     dismiss();
                 }
 
@@ -186,16 +153,16 @@ public class TaskAddDialogFragment extends DialogFragment {
         mButtonSetTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TimePickerDialog dialog =new TimePickerDialog(getActivity(),
+                TimePickerDialog dialog = new TimePickerDialog(getActivity(),
                         new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        String time = String.format("%02d", hourOfDay) + " : "
-                                + String.format("%02d", minute);
-                        mTask.setTime(time);
-                        mButtonSetTime.setText(time);
-                    }
-                },24,00,false);
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                String time = String.format("%02d", hourOfDay) + " : "
+                                        + String.format("%02d", minute);
+                                mTask.setTime(time);
+                                mButtonSetTime.setText(time);
+                            }
+                        }, 24, 00, false);
 
                 dialog.show();
 
@@ -204,29 +171,20 @@ public class TaskAddDialogFragment extends DialogFragment {
         mButtonSetDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatePickerDialog dialog=new DatePickerDialog(getActivity(),
-                       new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                       mTask.setDate(year+" / "+month+" / "+dayOfMonth);
-                       mButtonSetDate.setText(year+" / "+month+" / "+dayOfMonth);
-                    }
+                DatePickerDialog dialog = new DatePickerDialog(getActivity(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                mTask.setDate(year + " / " + month + " / " + dayOfMonth);
+                                mButtonSetDate.setText(year + " / " + month + " / " + dayOfMonth);
+                            }
 
-                },2000,1,1);
+                        }, 2000, 1, 1);
                 dialog.show();
             }
         });
     }
 
-    private void exposedDropdownMenus() {
-        String[] STATES = new String[]{State.Todo.name(), State.Doing.name(), State.Done.name()};
-        ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(
-                        getContext(),
-                        R.layout.dropdown_menu_popup_item,
-                        STATES);
-        mAutoCompleteTextView.setAdapter(adapter);
-    }
 
     private void findViews(View view) {
         mAutoCompleteTextView = view.findViewById(R.id.filled_exposed_dropdown);
@@ -247,4 +205,13 @@ public class TaskAddDialogFragment extends DialogFragment {
     }
 
 
+    private void exposedDropdownMenus() {
+        String[] STATES = new String[]{State.Todo.name(), State.Doing.name(), State.Done.name()};
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<String>(
+                        getContext(),
+                        R.layout.dropdown_menu_popup_item,
+                        STATES);
+        mAutoCompleteTextView.setAdapter(adapter);
+    }
 }

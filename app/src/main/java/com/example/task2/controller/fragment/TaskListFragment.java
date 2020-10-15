@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +18,7 @@ import com.example.task2.R;
 
 
 import com.example.task2.controller.State;
-import com.example.task2.model.TaskEntity;
+import com.example.task2.model.Task;
 
 import java.util.List;
 
@@ -85,9 +84,9 @@ public class TaskListFragment extends Fragment {
         mRecyclerView = view.findViewById(R.id.task_recyclerView);
     }
 
-    private void updateUI() {
+    public void updateUI() {
 
-        List<TaskEntity> tasks = mTaskDBRepository.getTasksForState(mState);
+        List<Task> tasks = mTaskDBRepository.getTasksForState(mState);
         mImageView.setVisibility(tasks.size() == 0 ? View.VISIBLE : View.INVISIBLE);
         if (mTaskAdapter == null) {
             mTaskAdapter = new TaskAdapter(tasks);
@@ -98,25 +97,19 @@ public class TaskListFragment extends Fragment {
         }
     }
 
-    public void notifyDataSetChangeDoing() {
-        mTaskAdapter.notifyDataSetChanged();
-    }
 
-    public TaskAdapter getTaskAdapter() {
-        return mTaskAdapter;
-    }
     public  class TaskAdapter extends RecyclerView.Adapter<TaskHolder> {
-        private List<TaskEntity> mTasks;
+        private List<Task> mTasks;
 
-        public TaskAdapter(List<TaskEntity> tasks) {
+        public TaskAdapter(List<Task> tasks) {
             mTasks = tasks;
         }
 
-        public List<TaskEntity> getTasks() {
+        public List<Task> getTasks() {
             return mTasks;
         }
 
-        public void setTasks(List<TaskEntity> tasks ) {
+        public void setTasks(List<Task> tasks ) {
             mTasks = tasks;
         }
 
@@ -130,7 +123,7 @@ public class TaskListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull TaskHolder holder, int position) {
-            TaskEntity task=mTasks.get(position);
+            Task task=mTasks.get(position);
             holder.bindTask(task);
         }
 
@@ -143,7 +136,7 @@ public class TaskListFragment extends Fragment {
         public static final String TAG_DETAIL_DIALOG_FRAGMENT = "tagDetailDialogFragment";
         public static final int REQUEST_CODE_TASK_DETAIL = 0;
         private TextView mIcon, mTitleText, mDateText, mTimeText;
-        private TaskEntity mTask;
+        private Task mTask;
         public TaskHolder(@NonNull View itemView) {
             super(itemView);
             mDateText = itemView.findViewById(R.id.txt_date);
@@ -163,7 +156,7 @@ public class TaskListFragment extends Fragment {
             });
         }
 
-        public void bindTask(TaskEntity task) {
+        public void bindTask(Task task) {
             mTask=task;
             mDateText.setText(task.getDate());
             mTimeText.setText(task.getTime());

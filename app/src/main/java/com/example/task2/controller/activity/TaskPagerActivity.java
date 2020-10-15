@@ -23,22 +23,22 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 public class TaskPagerActivity extends AppCompatActivity {
     public static final String TAG_ADD_TASK_DIALOG_FRAGMENT = "TagAddTaskDialogFragment";
-    public static final int REQUEST_CODE_TODO = 0;
-    public static final int REQUEST_CODE_DOING = 1;
-    public static final int REQUEST_CODE_DONE = 2;
+    public static final int REQUEST_CODE_TASK_LIST = 0;
+    public static final String EXTRA_USER_CREATOR_ID = "extraUserCreatorId";
+
     private ViewPager2 mViewPager2;
     private TabLayout mTabLayout;
     private FloatingActionButton mFloatingActionButton;
-    private int mPosition;
-    private TaskListFragment mDoingListFragment;
+    private TaskListFragment mTaskListFragment;
     public static final String TPA = "TPA";
     private State[] mTaskList;
-
+    private Long mUserCreatorId;
     //don't use of single fragment activity cuz use of activity not fragment for building view pager
     //***************************************************************
 
-    public static Intent newIntent(Context context) {
+    public static Intent newIntent(Context context, Long userCreatorId) {
         Intent intent = new Intent(context, TaskPagerActivity.class);
+        intent.putExtra(EXTRA_USER_CREATOR_ID,userCreatorId);
         return intent;
     }
     //***************************************************************
@@ -49,13 +49,14 @@ public class TaskPagerActivity extends AppCompatActivity {
         setContentView(R.layout.task_pager_activity);
         findViews();
         mTaskList= new State[]{State.Todo, State.Doing, State.Done};
-        initViews();
+        init();
         Log.d(TPA, "************************");
         mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TaskAddDialogFragment addTaskDialogFragment = TaskAddDialogFragment.newInstance();
-                addTaskDialogFragment.setTargetFragment(TaskListFragment.class);
+                TaskAddDialogFragment addTaskDialogFragment = TaskAddDialogFragment.newInstance
+                        (mUserCreatorId);
+                addTaskDialogFragment.setTargetFragment(mTaskListFragment,REQUEST_CODE_TASK_LIST);
                 addTaskDialogFragment.show
                         (getSupportFragmentManager(), TAG_ADD_TASK_DIALOG_FRAGMENT);
             }
@@ -66,7 +67,7 @@ public class TaskPagerActivity extends AppCompatActivity {
     }
 
     //***************************************************************
-    private void initViews() {
+    private void init() {
         FixedTabsPagerAdapter adapter = new FixedTabsPagerAdapter(this);
         mViewPager2.setAdapter(adapter);
         new TabLayoutMediator(mTabLayout, mViewPager2,
@@ -87,6 +88,7 @@ public class TaskPagerActivity extends AppCompatActivity {
                         }
                     }
                 }).attach();
+        mUserCreatorId=getIntent().getLongExtra(EXTRA_USER_CREATOR_ID,0);
     }
     //***************************************************************
 

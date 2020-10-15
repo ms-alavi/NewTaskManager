@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Task Manager</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="todo">ToDo</string>
     <string name="doing">Doing</string>
     <string name="done">Done</string>
@@ -17,4 +16,14 @@
     <string name="cuationTitle">This field should not be empty</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="user_name">User name</string>
+    <string name="enter_your_user_name">Enter your user name</string>
+    <string name="password">Password</string>
+    <string name="enter_your_password">Enter your password</string>
+    <string name="login">Login</string>
+    <string name="signUp">Sign Up</string>
+    <string name="doRegister">Please register !</string>
+    <string name="register">Register</string>
+    <string name="Registered">You have already registered !!!</string>
+    <string name="shouldNotEmpty">This field should not be empty</string>
 </resources>

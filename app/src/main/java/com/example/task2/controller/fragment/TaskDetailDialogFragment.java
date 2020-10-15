@@ -25,7 +25,7 @@ import android.widget.TimePicker;
 
 import com.example.task2.R;
 import com.example.task2.controller.State;
-import com.example.task2.model.TaskEntity;
+import com.example.task2.model.Task;
 import com.example.task2.repository.TaskDBRepository;
 
 import java.util.UUID;
@@ -37,7 +37,7 @@ public class TaskDetailDialogFragment extends DialogFragment {
     private AutoCompleteTextView mAutoCompleteTextView;
     private Button mButtonTime, mButtonDate, mButtonSave, mButtonEdit, mButtonDelete;
     private TaskDBRepository mTaskDBRepository;
-    private TaskEntity mTask;
+    private Task mTask;
 
     public TaskDetailDialogFragment() {
         // Required empty public constructor
@@ -180,7 +180,7 @@ public class TaskDetailDialogFragment extends DialogFragment {
                         mAutoCompleteTextView.setHintTextColor(Color.RED);
                     }
                 }else {
-                    mTaskDBRepository.update(mTask);
+                    mTaskDBRepository.updateTask(mTask);
                     dismiss();
                 }
             }
