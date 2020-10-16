@@ -25,6 +25,7 @@ import androidx.fragment.app.DialogFragment;
 import com.example.task2.R;
 import com.example.task2.controller.State;
 import com.example.task2.model.Task;
+import com.example.task2.model.UserWithTasks;
 import com.example.task2.repository.TaskDBRepository;
 
 import java.util.List;
@@ -37,7 +38,6 @@ public class TaskAddDialogFragment extends DialogFragment {
     private TaskDBRepository mTaskDBRepository;
     private AutoCompleteTextView mAutoCompleteTextView;
     private Task mTask;
-    private List<Task> mTasks;
     private TaskListFragment mTaskListFragment;
 
     public TaskAddDialogFragment() {

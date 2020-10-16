@@ -112,7 +112,8 @@ public class TaskPagerActivity extends AppCompatActivity {
         public Fragment createFragment(int position) {
             State state=mTaskList[position];
             Log.d(TPA,state.name() + "************************");
-            TaskListFragment taskListFragment=TaskListFragment.newInstance(state);
+            TaskListFragment taskListFragment=TaskListFragment.newInstance(state,mUserCreatorId
+            );
             return taskListFragment;
 
             }

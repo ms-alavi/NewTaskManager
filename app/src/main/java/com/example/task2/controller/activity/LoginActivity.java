@@ -26,7 +26,7 @@ public class LoginActivity extends SingleFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(LA,"password : "+mPassword+"userName**********************************************"+ mUserName);
+        Log.d(LA,"password : "+mPassword+"userName"+ mUserName);
     }
 
     public Intent newIntent(Context context, String pass, String userName) {

@@ -26,4 +26,5 @@
     <string name="register">Register</string>
     <string name="Registered">You have already registered !!!</string>
     <string name="shouldNotEmpty">This field should not be empty</string>
+    <string name="search">What are you looking for?</string>
 </resources>
